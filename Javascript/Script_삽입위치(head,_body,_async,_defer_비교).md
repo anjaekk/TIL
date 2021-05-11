@@ -70,5 +70,7 @@ HTML 페이지를 파싱(Parsing) 하는 중 위와 같은 코드를 만나게 �
 
 \* 참조 *
 [드림코딩 by 엘리](https://www.youtube.com/watch?v=tJieVCgGzhs&list=PLv2d7VI9OotTVOL4QmPfvJWPJvkmv6h-2&index=2)
+
 [Efficiently load JavaScript with defer and async](https://flaviocopes.com/javascript-async-defer/)
+
 [스크립트 요소](https://developer.mozilla.org/ko/docs/Web/HTML/Element/script)
