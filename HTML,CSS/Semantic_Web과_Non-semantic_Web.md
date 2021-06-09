@@ -75,7 +75,11 @@ _하지만 이미지 에러시 텍스트 노출을 안하는 것이 더 자연�
 하지만 이미지 삽입의 경우 웹페이지를 이해하는데 영향을 미치지 않는다면 `Non-semantic`한 방법을 이용할 수도 있다.
 
 > 참조
-🔗 [시맨틱 웹](https://ko.wikipedia.org/wiki/%EC%8B%9C%EB%A7%A8%ED%8B%B1_%EC%9B%B9)
-🔗 [HTML: A good basis for accessibility](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML)
-🔗 [HTML Semantic Elements](https://www.w3schools.com/html/html5_semantic_elements.asp)
-🔗 [Images in HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Images_in_HTML)
+>
+>🔗 [시맨틱 웹](https://ko.wikipedia.org/wiki/%EC%8B%9C%EB%A7%A8%ED%8B%B1_%EC%9B%B9)
+>
+>🔗 [HTML: A good basis for accessibility](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML)
+>
+>🔗 [HTML Semantic Elements](https://www.w3schools.com/html/html5_semantic_elements.asp)
+>
+>🔗 [Images in HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Images_in_HTML)
