@@ -13,6 +13,7 @@
 ---
 
 우선 다음과 같은 구조의 프로젝트가 있다고 하자.
+
 ![](https://images.velog.io/images/anjaekk/post/b9e7cd05-0925-4b65-8a7d-8856514ca75e/image.png)
 
 - **main.py**
