@@ -114,6 +114,7 @@ mysql>show tables;
 > models.py에 속성 생성시 class Meta를 이용하여 db_table 이름을 설정해주면 pizza_pizza는 pizza로 pizza_pizza_toppings은 pizza_toppings으로 설정해줄 수 있다.(물론 다른 이름으로도 가능!)
 
 각 테이블들의 row값을 확인해보자.
+
 ![](https://images.velog.io/images/anjaekk/post/8aca994c-cfb7-4d73-aebc-351ea3281443/image.png)
 
 ![](https://images.velog.io/images/anjaekk/post/0c5d6d05-663d-4fc9-b42c-4aa545609296/image.png)
@@ -154,6 +155,7 @@ class Servise(models.Model):
 
 
 > 참조
+> 
 > 🔗 [django documentation | Models](https://docs.djangoproject.com/en/3.2/topics/db/models/)
 >
 >🔗 [[Model] 관계](https://nachwon.github.io/django-relationship/)
