@@ -125,4 +125,66 @@ SELECT ROUND(amount, 2) FROM sample;
 ```
 
 ### 6. 문자열 연산
+**문자열 결합**
 
+|연산자/함수|데이터베이스|
+|:-:|:-:|
+|+|SQL Server|
+|`ㅣㅣ`|Oracle, DB2, PostgreSQL|
+|CONCAT|MySQL|
+
+#### 1) `10개`와 같이 표시하기
+```
+SELECT CONCAT(quantity, unit) FROM sample;
+```
+#### 2) SUBSTRING(SUBSTR) 함수
+문자열의 일부분 계산해서 반환
+**앞 4자리(년) 추출**
+```
+SUBSTRING('20140125001', 1, 4)
+```
+결과: '2014'
+
+**5째 자리부터 2자리(월) 추출**
+```
+SUBSTRING('20140125', 5, 2)
+```
+결과: '01'
+
+#### 3) TRIM 함수
+스페이스(인수 지정시 지정 인수) 제거 함수
+```
+TRIM('ABC   ')  ->   'ABC'
+```
+
+#### 4) CHARACTER_LENGTH(CHAR_LENGTH) 함수
+문자열 길이 계산 함수
+\* OCTET_LENGTH 함수는 문자 수가 아닌 바이트 단위로 길이 계산
+
+
+### 7. 날짜 연산
+#### 1) 시스템 날짜 확인하기
+```
+SELECT CURRENT_TIMESTAMP;
+```
+#### 2) 날짜의 덧셈과 뺄셈
+**1일 후**
+```
+SELECT CURRENT_DATE + INTERVAL 1 DAY;
+```
+**날짜형 간의 뺄셈(MySQL)**
+```
+DATEDIFF('2014-02-28', '2014-01-01')
+```
+
+### 8. CASE 문
+"a(null=0)" 라는 이름의 열에서 NULL값을 0으로 변환하기
+```
+SELECT a, CASE WHEN a IS NULL THEN 0 ELSE a END "a(null=0)" FROM sample;
+```
+\* 사실 null값 변경은 COALESCE 함수 쓰는게 편리함(null이 아니면 앞의 값으로 null이면 뒤의값으로)
+```
+SELECT a, COALESCE(a, 0) FROM sample;
+```
+#### ELSE문 생략
+ELSE를 생략하면 ELSE NULL이 됨, 상정한 것 외의 데이터가 들어오는 경우도 많으니 ELSE문을 생략하지 않는 편이 나음
