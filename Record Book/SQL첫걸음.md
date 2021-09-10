@@ -32,9 +32,97 @@
 
 # 테이블에서 데이터 검색
 ### 1. 자료형
-1) CHAR형과 VARCHAR형
-- VARCHAR형은 저장할 문자열의 길이에 맞춰 저장공간을 가변적으로 사용, CHAR형은 항상 고정된 길이로 저장(더 적게 입력시 공백으로 나머지리를 채운 후 저장함)
+1) CHAR형과 VARCHAR형  
+- VARCHAR형은 저장할 문자열의 길이에 맞춰 저장공간을 가변적으로 사용, CHAR형은 항상 고정된 길이로 저장(더 적게 입력시 공백으로 나머지리를 채운 후 저장함)   
+2) 문자열 상수 -> '' (싱글쿼트로 감쌈)  
+3) 데이터베이스 객체명 -> "" (더블쿼트로 감쌈)  
+
 #### 테이블 구조 참조(DESC)
 ```
-DESC [테이블 명]
+DESC 테이블 명
 ```
+### 2. 패턴 매칭
+#### 패턴 매칭 LIKE에서 사용할 수 있는 메타문자
+`%` : 임의의 문자 또는 문자열  
+`_` : 임의의 문자 하나  
+
+'SQL' 패턴을 찾는 다면
+#### 1) 전방 일치
+```
+SELECT 열명 FROM 테이블명 WHERE 조건식 LIKE 'SQL%';
+```
+#### 2) 후방 일치
+```
+SELECT 열명 FROM 테이블명 WHERE 조건식 LIKE '%SQL';
+```
+#### 3) 중간 일치
+```
+SELECT 열명 FROM 테이블명 WHERE 조건식 LIKE '%SQL%';
+```
+
+### 3.정렬  
+#### 1) 오름차순
+```
+SELECT 열명 FROM 테이블명 WHERE 조건식 ORDER BY 열명;
+```
+#### 2) 내림차순
+```
+SELECT 열명 FROM 테이블명 WHERE 조건식 ORDER BY 열명 DESC;
+```
+#### 3) 복수열 정렬
+```
+SELECT 열명 FROM 테이블명 WHERE 조건식 ORDER BY 열명1 [ASC|DESC], 열명2 [ASC|DESC] ...;
+```
+\* 정렬방법 생략시 기본값 ASC
+
+### 4. 결과 행 제한(페이지네이션)
+
+#### 1) LIMIT(MySQL, PostgreSQL)
+상위 3건만 확인시
+```
+SELECT 열명 FROM 테이블명 WHERE 조건식 ORDER BY 열명 LIMIT 3;
+```
+#### 2) TOP(SQL Server)
+```
+SELECT TOP 3 열명 FROM 테이블명;
+```
+#### 3) ROWNUM(Oracle)
+```
+SELECT 열명 FROM 테이블명 WHERE ROWNUM <= 3;
+```
+\* ROWNUM은 WHERE구로 지정하기 때문에 정렬하기 전에 처리되어 LIMIT로 행을 제한한 경우와 결과 값이 다름
+
+#### 4) 오프셋 지정
+6 ~ 10까지의 결과값 보기(5개) => offset = 시작할 행-1
+\* OFFSET의 기본값은 0
+```
+SELECT 열명 FROM 테이블명 LIMIT 3 OFFSET 5;
+```
+
+### 5. 계산
+#### 1) SELECT 구로 계산
+price와 quantity열을 이용해 곱한 값 나타내기(곱한 값에 amount라는 별명 붙임)
+\* AS는 생략가능(SELECT price * quantity amount)
+\* 한글로 설정시에는 ""로 감싸서 넣기
+```
+SELECT *, price * quantity AS amount FROM sample;
+```
+#### 2) WHERE 구로 계산
+price * quantity >= 2000 으로 필터링
+\* 주의할 점: WHERE구 -> SELECT구의 순서로 데이터베이스 서버내에서 처리 `(SELECT *, price * quantity AS amount FROM sample WHERE amount >= 2000) 안됨!!`
+SELECT구에서 지정한 별명은 WHERE 구 안에서 사용할 수 없음
+
+#### 3) ORDER BY 구로 계산
+ORDER BY구는 서버에서 내부적으로 가장 나중에 처리 됨 = SELECT구에서 지정한 별명을 사용할 수 있음
+```
+SELECT *, price * quantity AS amount FROM sample ORDERBY amount DESC;
+```
+
+#### 4) ROUND(반올림)
+amount를 소숫점 셋 째자리에서 반올림
+```
+SELECT ROUND(amount, 2) FROM sample;
+```
+
+### 6. 문자열 연산
+
