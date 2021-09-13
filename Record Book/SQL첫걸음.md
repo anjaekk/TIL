@@ -224,3 +224,21 @@ SQL의 DELETE명령을 사용해 직접 데이터를 삭제하자
 테이블에 `삭제플레그`와 같은 열을 미리 준비해두고 테이블에서 실제로 행을 삭제하는 것 대신 UPDATE 명령을 이용해 `삭제플레그`의 값을 유효하게 갱신하자(삭제 안한거는 삭제 플레그 열에 값 = 0, 삭제한건 = 1 이런씩으로)
 
 # 집계와 서브쿼리
+### 1. 집계함수
+#### COUNT
+조건에 맞는 행 개수 구하기
+```
+SELECT COUNT(*) FROM sample WHERE name = 'A';
+```
+\* `COUNT(*)` 경우 NULL값 포함하여 집계
+
+#### DISTINCT 중복제거
+```
+SELECT DISTINCT 열명 FROM sample;
+```
+\* `DISTINCT`와 반대 = `ALL`
+
+#### 중복제거 후 집계
+```
+SELECT COUNT(DISTINCT 열명) FROM 테이블명;
+```
