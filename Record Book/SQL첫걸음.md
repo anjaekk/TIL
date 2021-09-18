@@ -1,6 +1,10 @@
 # SQL 첫걸음
-### 목차
+## 목차
 #### [1. DB와 SQL](#DB와-SQL)
+#### [2. 데이터 검색](#데이터-검색)
+#### [3. 정렬과 연산](#정렬과-연산)
+#### [4. 추가, 삭제, 갱신](#추가-삭제-갱신)
+#### [5. 집계와 서브쿼리](#집계와-서브쿼리)
 
 # DB와 SQL
 ## 1. 데이터 베이스
@@ -34,7 +38,7 @@
 
 --------
 
-# 테이블에서 데이터 검색
+# 데이터 검색
 ### 1. 자료형
 1) CHAR형과 VARCHAR형  
 - VARCHAR형은 저장할 문자열의 길이에 맞춰 저장공간을 가변적으로 사용, CHAR형은 항상 고정된 길이로 저장(더 적게 입력시 공백으로 나머지리를 채운 후 저장함)   
@@ -63,8 +67,8 @@ SELECT 열명 FROM 테이블명 WHERE 조건식 LIKE '%SQL';
 ```
 SELECT 열명 FROM 테이블명 WHERE 조건식 LIKE '%SQL%';
 ```
-
-### 3.정렬  
+# 정렬과 연산
+### 1.정렬  
 #### 1) 오름차순
 ```
 SELECT 열명 FROM 테이블명 WHERE 조건식 ORDER BY 열명;
@@ -79,7 +83,7 @@ SELECT 열명 FROM 테이블명 WHERE 조건식 ORDER BY 열명1 [ASC|DESC], 열
 ```
 \* 정렬방법 생략시 기본값 ASC
 
-### 4. 결과 행 제한(페이지네이션)
+### 2. 결과 행 제한(페이지네이션)
 
 #### 1) LIMIT(MySQL, PostgreSQL)
 상위 3건만 확인시
@@ -103,7 +107,7 @@ SELECT 열명 FROM 테이블명 WHERE ROWNUM <= 3;
 SELECT 열명 FROM 테이블명 LIMIT 3 OFFSET 5;
 ```
 
-### 5. 계산
+### 3. 계산
 #### 1) SELECT 구로 계산
 price와 quantity열을 이용해 곱한 값 나타내기(곱한 값에 amount라는 별명 붙임)
 \* AS는 생략가능(SELECT price * quantity amount)
@@ -128,7 +132,7 @@ amount를 소숫점 셋 째자리에서 반올림
 SELECT ROUND(amount, 2) FROM sample;
 ```
 
-### 6. 문자열 연산
+### 4. 문자열 연산
 **문자열 결합**
 
 |연산자/함수|데이터베이스|
@@ -166,7 +170,7 @@ TRIM('ABC   ')  ->   'ABC'
 \* OCTET_LENGTH 함수는 문자 수가 아닌 바이트 단위로 길이 계산
 
 
-### 7. 날짜 연산
+### 5. 날짜 연산
 #### 1) 시스템 날짜 확인하기
 ```
 SELECT CURRENT_TIMESTAMP;
@@ -181,7 +185,7 @@ SELECT CURRENT_DATE + INTERVAL 1 DAY;
 DATEDIFF('2014-02-28', '2014-01-01')
 ```
 
-### 8. CASE 문
+### 6. CASE 문
 "a(null=0)" 라는 이름의 열에서 NULL값을 0으로 변환하기
 ```
 SELECT a, CASE WHEN a IS NULL THEN 0 ELSE a END "a(null=0)" FROM sample;
@@ -195,7 +199,7 @@ ELSE를 생략하면 ELSE NULL이 됨, 상정한 것 외의 데이터가 들어�
 
 ---
 
-# 추가, 삭제, 갱신
+# 추가 삭제 갱신
 ### 1. 행 추가하기
 #### INSERT
 sample이라는 테이블에 DESC로 열 확인후 데이터 형식에 맞는 값 넣기
