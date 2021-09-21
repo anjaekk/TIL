@@ -250,3 +250,46 @@ SELECT DISTINCT 열명 FROM sample;
 ```
 SELECT COUNT(DISTINCT 열명) FROM 테이블명;
 ```
+#### SUM, AVG, MIN, MAX
+```
+SUM([ALL|DISTINCT] 집합)
+```
+NULL값 0으로 반환 후 평균
+- quantity의 평균을 구할 때(CASE로 NULL을 0으로 변환 후 집계)
+```
+SELECT AVG(CASE WHEN quantity IS NULL THEN 0 ELSE quantity END) AS acgnull FROM sample;
+```
+### 2. 그룹화
+#### GROUP BY
+- `GROUP BY`는 집계함수와 함께 사용하는 것 아니면 별 의미 없음
+- `GROUP BY` 사용시 `GROUP BY`에 지정하지 않은 열은 `SELECT`할 수 없음(집계는 가능)
+
+GROUP BY 구와 집계함수 조합(이름 갯수와 수량의 합계 집계)
+```
+SELECT name, COUNT(name), SUM(quantity) FROM saple GROUP BY name;
+```
+
+#### HAVING(집계함수에서 조건문 처리)
+- WHERE구의 조건식에서는 집계함수를 사용할 수 없음
+- 내부처리 순서: `WHERE` -> `GROUP BY` -> `SELECT` -> `ORDER BY`
+
+name 열을 그룹화하여 행 개수가 하나만 존재하는 그룹 검색
+```
+SELECT name, COUNT(name) FROM sample GROUP BY name HAVING COUNT(name)=1;
+```
+
+### 3. 서브쿼리
+- 서브쿼리는 SQL 명령문 안에 지정하는 하부 SELECT 명령
+- 괄호로 묶어서 지정
+#### 스칼라 값 = 단일 값
+- 하나의 값을 반환하는 패턴(하나의 행, 하나의 열)
+- 스칼라 값은 서브쿼리로서 사용하기 쉬움
+
+#### 스칼라 서브쿼리
+- 스칼라 값을 반환하는 서브쿼리
+- 하나의 값을 반환하는 스칼라 서브쿼리를 사용하면 WHERE구에서 집계함수 사용가능
+```
+DELETE FROM sample WHERE a=(SELECT MIN(a) FROM sample;
+```
+### 4. 상관 서브쿼리
+#### EXISTS
