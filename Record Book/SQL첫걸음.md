@@ -293,3 +293,6 @@ DELETE FROM sample WHERE a=(SELECT MIN(a) FROM sample;
 ```
 ### 4. 상관 서브쿼리
 #### EXISTS
+```
+EXISTS (SELECT 명령)
+```
