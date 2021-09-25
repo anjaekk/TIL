@@ -6,6 +6,7 @@
 #### [4. 추가, 삭제, 갱신](#추가-삭제-갱신)
 #### [5. 집계와 서브쿼리](#집계와-서브쿼리)
 
+---
 # DB와 SQL
 ## 1. 데이터 베이스
 ### 1) DBMS
@@ -296,3 +297,4 @@ DELETE FROM sample WHERE a=(SELECT MIN(a) FROM sample;
 ```
 EXISTS (SELECT 명령)
 ```
+
