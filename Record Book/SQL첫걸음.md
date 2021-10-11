@@ -294,6 +294,7 @@ DELETE FROM sample WHERE a=(SELECT MIN(a) FROM sample;
 ```
 ### 4. 상관 서브쿼리
 #### EXISTS
+- 서브쿼리가 반드시 스칼라 값을 반환할 필요는 없음(반환된 행 존재여부 파악후 참, 거짓 반환)
 ```
 EXISTS (SELECT 명령)
 ```
