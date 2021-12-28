@@ -11,7 +11,7 @@ chars = '+_)(*&^%$#@!' # 임의의 문자
 code_list1 = []
 
 for s in chars:
-    code_list1.append(ord(s))
+    code_list1.append(ord(s)) # ord() 문자 -> 유니코드
 
 print(code_list1)  # [43, 95, 41, 40, 42, 38, 94, 37, 36, 35, 64, 33]
 
@@ -37,12 +37,14 @@ print(tuple) # [43, 95, 41, 40, 42, 38, 94, 37, 36, 35, 64, 33]
 tuple_g = (ord(s) for s in chars)
 print(tuple_g) # <generator object <genexpr> at 0x7fa9cf32f9e0>
 print(next(tuple_g)) # 43
-print(next(tuple_g))
-print(next(tuple_g))
-print(next(tuple_g))
-print(next(tuple_g))
-print(next(tuple_g))
-print(next(tuple_g))
-print(next(tuple_g))
-print(next(tuple_g))
-print(next(tuple_g))
+print(next(tuple_g)) # 95
+print(next(tuple_g)) # 41
+print(next(tuple_g)) # 40
+print(next(tuple_g)) # 42
+print(next(tuple_g)) # 38
+print(next(tuple_g)) # 94
+print(next(tuple_g)) # 37
+print(next(tuple_g)) # 36
+print(next(tuple_g)) # 35
+# generator 모두 출력시 print(next(tuple_g)) StopIteration 예외 발생
+
