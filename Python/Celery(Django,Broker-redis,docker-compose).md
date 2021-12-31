@@ -158,6 +158,7 @@ celery를 넣은 api폴더의 `__init__.py`를 설정하지않으면 모듈인�
 
 ## Celery 사용하기
 api container에 들어가서 `celery -A api status` 입력을 통해 연결을 확인한다.
+
 ![](https://images.velog.io/images/anjaekk/post/83065c6c-c13e-43bf-be73-a01a29e4ecab/image.png)
 
 아래와 같이 간단한 Task함수를 작성하고 Task를 호출해보도록 하겠다.
@@ -183,6 +184,7 @@ python shell에서 task를 실행시켜본다.
 >>> from app.tasks import *
 >>> print_hello.delay('banana')
 ```
+
 ![](https://images.velog.io/images/anjaekk/post/58ec5d79-6ab1-42cb-93c7-34485a605659/image.png)
 
 ### worker log 확인
