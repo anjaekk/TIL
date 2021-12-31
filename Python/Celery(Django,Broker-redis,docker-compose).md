@@ -47,6 +47,7 @@ Message Broker는 어플리케이션 간 메시지를 교환할 수 있도록 Pu
 장고에 맞는 라이브러리를 설치안하는 것 뿐. python celery 패키지는 설치해줘야한다.
 ```
 pip install Celery
+pip install redis
 pip install django_celery_results
 ```
 
