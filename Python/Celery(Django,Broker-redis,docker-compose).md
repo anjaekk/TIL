@@ -21,6 +21,12 @@ Message Broker는 어플리케이션 간 메시지를 교환할 수 있도록 Pu
 
 <br>
 
+### Celery Architecture
+![](https://images.velog.io/images/anjaekk/post/f66c7088-68ae-4afb-81a0-7897dd409106/image.png)
+
+<br>
+
+
 ## Django와 함께 Celery 설정하기
 ### [python, django, celery, redis, mysql, docker-compose 기반]
 
