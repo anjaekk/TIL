@@ -1,7 +1,7 @@
 # Streamlit
 Stremlit은 오픈소스 파이썬 라이브러리로 웹 어플리케이션 툴이다. Streamlit에서는 데이터 애플리케이션을 구축하고 공유하는데 가장 빠른 방법이라고 소개하고 있다. 
 
-> 📂 [Streamlit Documentation](https://docs.streamlit.io/library/get-started)
+> 📂 [Streamlit Documentation](https://docs.streamlit.io/library/get-started)   
 > 📂 [Streamlit Github](https://github.com/MarcSkovMadsen/awesome-streamlit)
 
 ### Streamlit 장점
