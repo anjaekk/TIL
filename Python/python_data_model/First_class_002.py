@@ -14,7 +14,7 @@ func_v1(10) # 10 20
 c = 30
 
 def func_v2(a):
-    global c # 전역변수 참조
+    global c # 전역변수 참조(전역변수 값을 함수내부에서 수정하는 것은 좋지 않음)
     print(a)
     print(c)
     c = 40 # 전역변수 참조 설정 전 같은 이름으로 변수 설정 시 로컬변수로 인식해서 'unbound local error' 발생
@@ -63,9 +63,58 @@ print()
 
 # Closure 사용
 def closure_ex1():
-    series = []
+    # 클로저 영역
+    series = [] # 클로저 영역의 자유변수(내가 사용하려는 함수 밖에서 선언된 변수-Free variable)
     def averager(v):
         series.append(v)
         print('inner >>> {} / {}'.format(series, len(series)))
         return sum(series) / len(series)
     return averager
+
+avg_closure1 = closure_ex1()
+
+print(avg_closure1(10)) # 10.0
+print(avg_closure1(30)) # 20.0
+print(avg_closure1(50)) # 30.0
+
+print()
+print()
+
+# function inspection
+print(dir(avg_closure1))
+print()
+print(dir(avg_closure1.__code__)) # 'co_freevars'(자유변수)....
+print(avg_closure1.__code__.co_freevars) # ('series',)
+print()
+print(avg_closure1.__closure__[0].cell_contents) # [10, 30, 50]
+
+
+print()
+print()
+
+# 잘못된 클로저 사용
+def closure_ex2():
+    # Free variable
+    cnt = 0
+    total = 0
+    def averager(v):
+        cnt += 1
+        total  += v
+        return total / cnt
+    return averager
+
+avg_closure2 = closure_ex2()
+# print(avg_closure2(10)) # UnboundLocalError: local variable 'cnt' referenced before assignment
+
+def closure_ex3():
+    cnt = 0
+    total = 0
+    def averager(v):
+        nonlocal cnt, total # 자유변수라고 알려주기
+        cnt += 1
+        total  += v
+        return total / cnt
+    return averager
+
+avg_closure3 = closure_ex3()
+print(avg_closure3(10))
