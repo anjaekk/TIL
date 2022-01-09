@@ -73,7 +73,7 @@ Car.price_per_raise = 1.4
 # 가격정보(인상 후)
 print(car1.get_price_culc()) # After Car Price -> company : Ferrari, price : 11200.0
 
-# Class method활용
+# Class method활용 = 클래스 변수 핸들링할 때
 Car.raise_price(1) # Please Enter 1 Or More
 Car.raise_price(1.86)
 
