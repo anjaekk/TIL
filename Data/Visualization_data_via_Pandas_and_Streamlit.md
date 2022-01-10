@@ -141,4 +141,4 @@ st.area_chart(line_data.loc[l_index[0]], use_container_width=True)
 ![](https://images.velog.io/images/anjaekk/post/24794ceb-32c7-4a01-aaf8-c639de6a0549/image.png)
 
 
-colum의 타입을 datetime으로 변경하게되면 날짜순으로 이어질텐데 우선 streamlit을 사용해보는 것을 중점으로 해봤다. 이외에도 멋져보이는 그래픽들이 많았지만 우선 기본적인 걸로 이해를 해봤으니 다음에는 조금더 고차원적인 데이터 시각화를 해보고 싶다.
+컬럼의 타입을 datetime으로 변경하게되면 날짜순으로 이어질텐데 우선 streamlit을 사용해보는 것을 중점으로 해봤다. 이외에도 멋져보이는 그래픽들이 많았지만 우선 기본적인 걸로 이해를 해봤으니 다음에는 조금더 고차원적인 데이터 시각화를 해보고 싶다.
