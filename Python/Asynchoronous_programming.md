@@ -1,3 +1,26 @@
+## Coroutine
+코루틴은 cooperative routine의 줄인말로 서로 협력하는 루틴이라는 뜻이다. 코루틴이 아닌 함수는 main routine과 sub routine으로 구성되며 서로 종속적인 관계가 된다. 아래의 코드를 보면 calc함수는 main routine이 되고 add, mul함수가 각각 sub routine이 되어 작업 종료시 calc함수로 돌아오게 된다.
+```
+def add(a, b):
+    c = a + b 
+    return c
+    
+def mul(a, b):
+	c = a * b
+    return c
+	
+def calc():
+    add = add(1, 2)    # add 함수가 끝나면 다시 calc 함수로 돌아옴
+ 	mul = mul(2, 3)    # mul 함수가 끝나면 다시 calc 함수로 돌아옴
+    print(add, mul)
+    
+    
+calc()
+```
+
+하지만 coroutine은 종속적인 관계가 아닌 대등한 관계로 main routine의 최초 호출이 있으면 coroutine은 해당 작업을 실행하고 그 직업이 완료되지 않았더라도 main routine으로 다시 돌아가 다음 작업을 실행한다. 이러한 python의 coroutine은 single thread에서 대기시간을 줄여 CPU의 활용을 극대화 시킬 수 있다. 
+  
+
 ## asyncio
 [📂 Asyncio Documentation](https://docs.python.org/ko/3.8/library/asyncio.html)    
 asyncio는 python 3.6부터 등장한 동시성 코드를 작성하는 라이브러리이다. asyncio는 async와 await구문을 통해 아래와 같이 간단하게 사용할 수 있다. 
