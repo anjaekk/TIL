@@ -40,4 +40,14 @@ HTTP/3
     - 단점: 연결시간 소요
         - 매 요청마다 TCP/IP연결을 새로 맺어야 하다보니 그 만큼의 시간이 소요되게 된다.
 4. HTTP 메세지
+    - 요청, 응답메세지
+    - 기본구조
+        - start-line  
+            요청의 경우 HTTP method, 응답의 경우 상태코드(status-code)가 start-line에 들어가게 된다.     
+        - header    
+            HTTP 전송에 필요한 모든 meta data들이 모두 들어있다. header에 대한 내용은 아래에서 더 다루도록 한다.    
+        - empty line(CRLF; 공백라인 필수)
+        - message body    
+            byte로 표현할 수 있는 데이터는 모두 들어갈 수 있다.
+            
 5. 단순하고 확장이 가능하다
