@@ -98,5 +98,3 @@ for chr, group in gen9:
 # B  :  ['B']
 # C  :  ['C', 'C', 'C']
 # D  :  ['D', 'D']
-
-
