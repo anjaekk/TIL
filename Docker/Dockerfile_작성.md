@@ -14,6 +14,9 @@ Python 3.8 (alpine 리눅스 기반)을 base 이미지로 사용
 ```
 FROM python:3.8-alpine
 ```
+- buster, bullseye = 데비안 릴리스의 코드명(bullseye는 개발중으로 아직 안정적이지 않은 버전)
+- slim = 최소한의 패키지만 설치(alpine 은 slime보다 더 최소화)
+  
 
 #### WORKDIR : 컨테이너 상에서 작업 디렉토리로 전환
 - shell에서 cd명령문 같은 역할입니다.
