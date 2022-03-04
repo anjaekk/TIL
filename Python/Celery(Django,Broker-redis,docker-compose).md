@@ -198,8 +198,45 @@ worker container에 들어가 `celery -A api worker -l info`를 입력해준다.
 
 ![](https://images.velog.io/images/anjaekk/post/76b0a045-1b46-4ad5-98c7-73404ba3f97b/image.png)
 
+### task id를 통해 결과 확인하기
+task id는 실행 매서드의 결과로 나온다.
+```
+task_id = print_hello.delay('banana')
+```
+하지만 여기서 나온 task_id는  AsyncResult의 결과 타입으로 타입을 확인해보면 아래와 같다. 
+```
+<class 'celery.result.AsyncResult'>
+```
 
-모니터링에 관련된 사항은 [celery문서](https://docs.celeryproject.org/en/latest/userguide/monitoring.html#guide-monitoring)에 잘 나와있다. 
+그러므로 결과를 확인할 때는 해당 아이디를 문자열로 변환후 `AsyncResult`를 통해 확인해준다. 
+```
+from celery.result import AsyncResult
+
+def celery_state(task_id):
+    task = AsyncResult(id=str(task_id), app=app)
+   
+    return {'state':task.state}
+```
+
+이에대한 결과는 아래와 같다.
+- *PENDING*
+결과 기다리는 중
+
+
+- *STARTED*
+작업이 시작됨
+ 
+- *RETRY*
+작업이 실패하여 재시도 
+
+- *FAILURE*
+실패(예외가 발생하거나 재시도 횟수 제한 초과) 
+
+- *SUCCESS*
+성공
+
+그외 자세한 모니터링에 관련된 사항은 [celery문서](https://docs.celeryproject.org/en/latest/userguide/monitoring.html#guide-monitoring)에 잘 나와있다. 
+
 
 
 <br>
