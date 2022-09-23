@@ -1,3 +1,9 @@
+[ 결론 ] 
+
+1. CPU 바운드 => Multi Processing
+2. I/O 바운드, 빠른 I/O, 제한된 연결 수 => Multi Threading
+3. I/O 바운드, 느린 I/O, 많은 연결 => Asyncio
+
 [ 바운드의 종류 ]
 
 1. CPU 바운드
@@ -123,13 +129,14 @@ getpid(): 현재 process id 반환
 
 **process는 각각의 id가 존재하는데 그 id를 pid라고 함*
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e3e2c7c0-584a-4315-86ab-54d49c73a2e5/Untitled.png)
+![image](https://user-images.githubusercontent.com/74139727/191920427-a4873103-1d65-429d-a73a-35cbde71b302.png)
+
 
 pid가 97744 process인 프로세스 한 개에서 작업 수행 확인
 
 수행시간을 살펴보면 20초가 걸린걸 확인할 수 있다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f561bbc6-b577-4761-b54b-1cb7eaf09396/Untitled.png)
+![image](https://user-images.githubusercontent.com/74139727/191920464-fd9c914e-e1b6-486a-b152-0221240caa8f.png)
 
 ```python
 import requests
@@ -160,7 +167,7 @@ if __name__ == "__main__":
 
 위의 코드를 실행하게되면 비동기적으로 작업을 수행하게되어 수행시간이 기존 동기적방식으로 실행한 20초의 절반값인 10초로 단축된걸 확인할 수 있다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ab15e31f-481d-4191-b92c-6710cb22c2be/Untitled.png)
+![image](https://user-images.githubusercontent.com/74139727/191920659-3317b3f0-f851-42c2-a77e-bfb5c240b3eb.png)
 
 이를 httpio를 사용하지않고 멀티쓰레딩으로 구현하면
 
