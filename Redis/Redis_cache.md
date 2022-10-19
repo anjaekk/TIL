@@ -88,8 +88,6 @@
     
     데이터 저장공간 절약, 정수로 된 데이터만 카운팅 가능
     
-    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/533562fd-efa4-4ef0-8399-37d12069ca1e/Untitled.png)
-    
     ```tsx
     > SETBIT visitors:20220817 3 1    -> user ID에 해당하는 bit 1로 올려주기
     (integer) 0
