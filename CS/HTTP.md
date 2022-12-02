@@ -19,8 +19,9 @@ GET method만 가능했으며 header가 존재하지 않았기 때문에 HTML �
 - 현재는 주로 1.1을 사용
 - Connection Keep-Alive기능이 추가
     - HTTP는 TCP 연결 기반 위에서 동작하는 프로토콜로 신뢰성 확보를 위해 연결을 맺고 끊는 데 있어서 Handshake가 이루어진다. 모든 연결의 Handshake를 하게됨으로써 비연결성 프로토콜에서는 overhead가 발생하게 되고 이를 해결하기위해 Connection Keep-Alive가 도입되었다. Connection Keep-Alive를 통해 연결을 유지함으로써 불필요한 Handshake 횟수를 줄일 수 있다.
-    - Keep-Alive를 이용한 통신은 client나 server한 쪽이 다음 헤
+    - Keep-Alive를 이용한 통신은 client나 server한 쪽이 연결을 끊거나 timeout될 때까지 연결 된다.
 - 파이프라이닝 추가
+    - Keep-Alive 이용을 전제로 사용되는 기술
     - 이전 요청에 대한 응답이 완전히 전송되기 전에 다음 요청 전송을 가능하게 하여 레이턴시를 낮춤
 - 청크된 응답 지원
 - 캐시 제어 매커니즘
