@@ -1,3 +1,4 @@
+# Celery
 메세지 전달을 기반으로 한 비동기 task 큐(Distributed task queue, 종합적인 비동기 처리기)
 
 Client = 백엔드 테스크를 실행하는 클라이언트
