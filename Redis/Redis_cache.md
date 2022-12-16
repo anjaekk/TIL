@@ -196,10 +196,10 @@ RDB(snapshot)
 2. Sentinel
     - master 노드와 replica 노드 외에 sentinel노드가 추가적으로 필요(sentinel 프로세스를 추가로 띄어줘야 함)
     - sentinel은 노드의 갯수가 3대 이상의 홀수로 존재해야 함
-    - sentinel은 일반 노드들을 모니터링 하는 역할을 함
+    - sentinel은 일반 노드들(master와 replica)을 모니터링 하는 역할을 함
     - master 노드 장애 발생시 자동으로 페일오버를 발생시켜 기존 replica 노드가 master가 됨
     - 어플리케이션에서 sentinel의 연결정보만 가지고 있기 때문에 페일오버가 발생하더라도 sentinel에서 master 노드정보로 바로 연결시켜 줌
-    - 과반수 이상의 sentinel이 동의해야 페일오버 진행
+    - 과반수 이상의 sentinel이 동의해야 페일오버 진행(sentinel이 홀수로 존재해야하는 이유)
 3. Cluster
     - 클러스터 구성에서는 최소 3대의 마스터가 필요
     - 데이터가 여러 마스터 노드에 자동으로 분할되어 저장되는 “샤딩기능” 제공
