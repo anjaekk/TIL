@@ -195,7 +195,7 @@ RDB(snapshot)
     - HA기능이 없으므로 master 노드에 장애 발생시 수동 복구 해야함(replica 노드에 직접 접속해서 복제를 끊기, 어플리케이션에서 연결설정 변경)
 2. Sentinel
     - master 노드와 replica 노드 외에 sentinel노드가 추가적으로 필요(sentinel 프로세스를 추가로 띄어줘야 함)
-    - sentinel은 노드의 갯수가 3대 이상의 홀수로 존재해야 함
+    - sentinel은 노드의 갯수가 3대 이상의 홀수로 존재해야 함(최소 master 1대, replica 1대, sentinel 1대)
     - sentinel은 일반 노드들(master와 replica)을 모니터링 하는 역할을 함
     - master 노드 장애 발생시 자동으로 페일오버를 발생시켜 기존 replica 노드가 master가 됨
     - 어플리케이션에서 sentinel의 연결정보만 가지고 있기 때문에 페일오버가 발생하더라도 sentinel에서 master 노드정보로 바로 연결시켜 줌
