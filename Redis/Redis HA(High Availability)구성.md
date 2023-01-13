@@ -76,10 +76,10 @@ python의 대표적인 비동기 queue 관리자인 celery는 redis cluster를 �
 ### 환경변수 설정
 
 ```xml
-CELERY_BROKER_URL=sentinel://redis-sentinel-1:26379/1;sentinel://redis-sentinel-2:26380/1;sentinel://redis-sentinel-3:26380/1
+CELERY_BROKER_URL=sentinel://redis-sentinel-1:26379/1;sentinel://redis-sentinel-2:26380/1;sentinel://redis-sentinel-3:26381/1
 CELERY_VISIBILITY_TIMEOUT=3600
-CELERY_RESULT_BACKEND=sentinel://redis-sentinel-1:26379/1;sentinel://redis-sentinel-2:26380/1;sentinel://redis-sentinel-3:26380/1
-SENTINEL_URL="redis-sentinel-1", 26379),("redis-sentinel-2", 26380),("redis-sentinel-3", 26380)
+CELERY_RESULT_BACKEND=sentinel://redis-sentinel-1:26379/1;sentinel://redis-sentinel-2:26380/1;sentinel://redis-sentinel-3:26381/1
+SENTINEL_URL="redis-sentinel-1", 26379),("redis-sentinel-2", 26380),("redis-sentinel-3", 26381)
 MASTER_NAME=redis
 ```
 
