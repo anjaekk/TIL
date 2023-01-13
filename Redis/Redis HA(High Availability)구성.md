@@ -94,14 +94,12 @@ MASTER_NAME=redis
 redis:
     container_name: redis
     image: library/redis:6.2.8-alpine
-    platform: linux/x86_64
     ports:
       - 6379:6379
     restart: unless-stopped
     environment:
       - REDIS_REPLICATION_MODE=master
       - ALLOW_EMPTY_PASSWORD=yes
-      - RESOLVE_HOSTNAMES=yes
     networks:
       - redis-networks
     volumes:
@@ -117,7 +115,6 @@ redis:
       - REDIS_REPLICATION_MODE=slave
       - REDIS_MASTER_HOST=redis
       - ALLOW_EMPTY_PASSWORD=yes
-      - RESOLVE_HOSTNAMES=yes
     command: redis-server --slaveof redis 6379  #replica 선언
     networks:
       - redis-networks
