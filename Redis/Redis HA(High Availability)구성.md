@@ -36,9 +36,9 @@ replica 노드 생성은 `replicaof` 명령어로 간단하게 구성이 가능�
     - 하나의 sentinel인스턴스가 가지고 있는 상태
 2. ODOWN 
     - 객관적 다운(Objectively Down)
-    - 쿼럼 파라미터 이상의 sentinel이 SDOWN조건을 가지고 있고 다른 sentinel에게 `SENTINEL is-master-down-by-addr` 커맨드를 받았을 때 발생한다.
-    
-    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0dd229cd-a048-4d83-b2d9-daae02776387/Untitled.png)
+    - 쿼럼 파라미터 이상의 sentinel이 SDOWN조건을 가지고 있고 다른 sentinel에게 `SENTINEL is-master-down-by-addr` 커맨드를 받았을 때 발생한다.    
+     ![image](https://user-images.githubusercontent.com/74139727/212246027-bd0fa7c7-8625-4847-9a57-376c799dbab9.png)
+
     
 
 # Cluster
@@ -227,18 +227,14 @@ if SENTINEL_URL := os.environ.get("SENTINEL_URL"):
 
 1. docker에서 컨테이너가 모두 정상으로 띄어졌는지 확인한다.
     
-    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2a4d9729-c248-4044-a0ee-e81da1563726/Untitled.png)
+    ![image](https://user-images.githubusercontent.com/74139727/212245855-0cf88096-2b73-4161-a8cb-fa3ad237e723.png)
+
     
 
 1. sentinel로 접근하여 센티널의 상태와 모니터링하는 master정보를 확인한다.(포트정보를 꼭 넣어준다.)
     
-    ```xml
-    docker exec -it redis-sentinel-1 redis-cli -p 26379
-    ```
-    
-    결과
-    
-    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dd9ce6aa-28b8-47bb-8e5d-9d805cdec2dc/Untitled.png)
+    ![image](https://user-images.githubusercontent.com/74139727/212245829-84588b70-55c6-4aed-bec0-bb04c6069cc8.png)
+
     
 
 1. replica 승격 확인
