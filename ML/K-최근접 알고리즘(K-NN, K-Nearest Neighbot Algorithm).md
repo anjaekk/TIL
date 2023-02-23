@@ -1,31 +1,7 @@
 # K-최근접 알고리즘(K-NN, K-Nearest Neighbot Algorithm)
 
-## 분류(Classification)과 회귀(Regression) 차이
+사용한 예제의 출처는 => [혼자 공부하는 머신러닝+딥러닝](https://ebook-product.kyobobook.co.kr/dig/epd/ebook/4801162243665?utm_source=google&utm_medium=cpc&utm_campaign=googleSearch&gclid=CjwKCAiAl9efBhAkEiwA4TorintTGZL5Dc_Fao7A6bnGEgdIq2DGEdbWywLZ9sC_tT7iRZZcx14MThoCJe4QAvD_BwE)
 
-### 분류
-
-- 예측해야할 대상(class)가 정해져 있음
-
-→ K-NN 분류: 새로운 데이터 x가 주어졌을 때, x에 가장 가까운 k개의 데이터중 가장 많은 값의 class로 판단
-
-예) 이 데이터는 도미일 가능성이 높다.
-
-### 회귀
-
-- 연속성 중 어디에 해당하는가를 예측
-
-→ K-NN 회귀: 새로운 데이터 x가 주어졌을 때, x에 가장 가까운 k개의 데이터 값을 평균내서 값을 예측
-
-예) 이 데이터의 크기가 이정도이니 몸무게는 이정도 일 가능성이 높다.
-
-K-최근접 알고리즘은 분류(Classification) 알고리즘으로 비슷한 특성을 가진 데이터는 비슷한 범주에 속하는 경향이 있다는 가정하에 사용된다. 
-
-### 사용분야
-
-- 이미지처리
-- 글자 / 얼굴 인식
-- 추천 알고리즘
-- 의료 분야 등..
 
 ### 장점
 
@@ -45,6 +21,8 @@ K-최근접 알고리즘은 분류(Classification) 알고리즘으로 비슷한 
 - 과적합문제를 최소하기 위해 트레인 데이터 값의 성공률과 테스트 데이터 값의 성공률의 갭이 적게 차이나는 값을 설정해야한다.
 - 테스트셋이 달라질 때마다 k값을 다르게 지정해야 한다.
 
+## 과적합
+
 ### 과대적합(over fitting)
 
 - 훈련 셋의 점수보다 테스트 셋의 점수가 지나치게 낮은 경우
@@ -53,20 +31,33 @@ K-최근접 알고리즘은 분류(Classification) 알고리즘으로 비슷한 
 
 ### 과소적합(under fitting)
 
-- 훈련 셋보다 테스트 셋의 점수가 높거나 두 점수가 모두 너무 낮은 경우
+- 훈련 셋보다 < 테스트 셋의 점수가 높거나 두 점수가 모두 너무 낮은 경우
 - 모델이 너무 단순해서 데이터의 내재된 구조를 학습하지 못하는 경우를 말한다.
 - 해결을 위해 모델을 더 복잡하게 만들어야한다.
-- K-NN에서는 K값을 줄여서 모델 값을 복잡하게 가능
 
-# K-최근접 회귀(K-NN Regression)
+### K-NN에서의 과적합
 
-## 회귀
+- k의 개수를 줄이면 과대 적합이 되고
+- k의 개수를 늘리면 과소 적합이 된다.
+    - 극단적으로 k를 전체 샘플로 하면 결과값이 1개만 나오기 때문에
 
-우선 회귀란 여러 개의 독립변수와 한 개의 종속변수 간의 상관관계를 모델링하는 기법을 말한다. 머신러닝 에서 독립변수는 = feature에 해당하고 종속변수는 = 결정 값에 해당하게 된다. 여기서 파악해야하는 건 주어진 feature와 결정 값 데이터에서 학습을 통해 **최적의 회귀 계수를 찾아내는 것**이다.
+## 분류(Classification)과 회귀(Regression) 차이
 
-## K-최근접 회귀
+### 분류
 
-주변의 가장 가까운 K개의 샘플을 통해 값을 예측하는 방식
+- 예측해야할 대상(class)가 정해져 있음
+
+→ K-NN 분류: 새로운 데이터 x가 주어졌을 때, x에 가장 가까운 k개의 데이터중 가장 많은 값의 class로 판단
+
+예) 이 데이터는 도미일 가능성이 높다.
+
+### 회귀
+
+- 연속성 중 어디에 해당하는가를 예측
+
+→ K-NN 회귀: 새로운 데이터 x가 주어졌을 때, x에 가장 가까운 k개의 데이터 값을 평균내서 값을 예측
+
+예) 이 데이터의 크기가 이정도이니 몸무게는 이정도 일 가능성이 높다.
 
 # 실습1-K-NN 분류
 
@@ -219,9 +210,190 @@ np.random.seed(42)
 index = np.arange(49) # [0, 1, 2, ... , 48] 
 np.random.shuffle(index) 
 
+# 배열 인덱싱
 train_input = input_arr[index[:35]] 
 train_target = target_arr[index[:35]]
 ```
 
 - 섞은 후 35개의 샘플 선택
 - 일정한 결과를 얻기위한 random seed 설정
+
+### 표준점수(z점수)
+
+(특성-평균)/표준편차
+
+# K-최근접 회귀(K-NN Regression)
+
+## 회귀
+
+우선 회귀란 여러 개의 독립변수와 한 개의 종속변수 간의 상관관계를 모델링하는 기법을 말한다. 머신러닝 에서 독립변수는 = feature에 해당하고 종속변수는 = 결정 값에 해당하게 된다. 여기서 파악해야하는 건 주어진 feature와 결정 값 데이터에서 학습을 통해 **최적의 회귀 계수를 찾아내는 것**이다.
+
+## K-최근접 회귀
+
+주변의 가장 가까운 K개의 샘플을 통해 값을 예측하는 방식
+
+# 실습1-K-NN 회귀
+
+### 사이킷런(Scikit-learn)의 K-NN 회귀 클래스 이용
+
+KNeighborsRegressor
+
+[sklearn.neighbors.KNeighborsRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsRegressor.html)
+
+```python
+class sklearn.neighbors.KNeighborsRegressor(
+	n_neighbors=5, 
+	*, 
+	weights='uniform', 
+	algorithm='auto', 
+	leaf_size=30, 
+	p=2, 
+	metric='minkowski', 
+	metric_params=None, 
+	n_jobs=None
+)
+```
+
+- n_neighbors: 근접한 K의 값
+- weights: 가중치
+    - uniform: 균일한 가중치(기본값, 각 이웃의 포인트가 동일한 가중치를 가짐)
+    - distance: 거리의 역수로 가중치 부여(가까울 수록 가중치 높아짐)
+    - callable: 사용자가 직접 정의한 함수(파라미터로 거리가 저장된 배열을 받고 가중치가 저장된 배열을 리턴해야함)
+- algorithm: 가까운 이웃 계산시 사용되는 알고리즘 선택
+    - auto: 입력된 훈련 데이터에 기반하여 적잘한 알고리즘 사용(기본 값)
+    - ball_tree: Ball-Tree 구조 사용
+    - kd_tree: KD_Tree 구조
+    - brute: Brute-Force
+- leaf_size: 알고리즘을 ball_tree나 kd_tree와 같이 tree 구조를 사용했을 때 leaf의 사이즈를 선택
+    - 트리저장을 위한 메모리, 트리 구성과 쿼리 처리 속도에 영향을 미침
+- p: 민코프스키 미터법(Minkowski)의 차수를 결정
+    - 1: 맨해튼 거리(Manhatten distance)
+    - 2: 유클리드 거리(Euclidean distance)
+- metric: 거리 계산에 사용될 메트릭
+    - minkowski: p=2일 때, 표준 유클리드 거리가 됨(기본값)
+    - 유효한 메트릭 참조
+        
+        [sklearn.metrics.pairwise.distance_metrics](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.distance_metrics.html#sklearn.metrics.pairwise.distance_metrics)
+        
+- metric_params: 메트릭 함수에 대한 키워드 인수(기본 값=None)
+- n_jobs: 이웃 검색을 위해 실행할 병렬 작업 수(기본 값=None)
+
+### 훈련 데이터 셋
+
+```python
+import numpy as np
+
+# K-NN 회귀를 위한 데이터 셋
+# 농어의 길이
+perch_length = np.array([8.4, 13.7, 15.0, 16.2, 17.4, 18.0, 18.7, 19.0, 19.6, 20.0, 21.0,
+       21.0, 21.0, 21.3, 22.0, 22.0, 22.0, 22.0, 22.0, 22.5, 22.5, 22.7,
+       23.0, 23.5, 24.0, 24.0, 24.6, 25.0, 25.6, 26.5, 27.3, 27.5, 27.5,
+       27.5, 28.0, 28.7, 30.0, 32.8, 34.5, 35.0, 36.5, 36.0, 37.0, 37.0,
+       39.0, 39.0, 39.0, 40.0, 40.0, 40.0, 40.0, 42.0, 43.0, 43.0, 43.5,
+       44.0])
+# 농어의 무게
+perch_weight = np.array([5.9, 32.0, 40.0, 51.5, 70.0, 100.0, 78.0, 80.0, 85.0, 85.0, 110.0,
+       115.0, 125.0, 130.0, 120.0, 120.0, 130.0, 135.0, 110.0, 130.0,
+       150.0, 145.0, 150.0, 170.0, 225.0, 145.0, 188.0, 180.0, 197.0,
+       218.0, 300.0, 260.0, 265.0, 250.0, 250.0, 300.0, 320.0, 514.0,
+       556.0, 840.0, 685.0, 700.0, 700.0, 690.0, 900.0, 650.0, 820.0,
+       850.0, 900.0, 1015.0, 820.0, 1100.0, 1000.0, 1100.0, 1000.0,
+       1000.0])
+```
+
+### 산점도 그래프 확인
+
+```python
+plt.scatter(perch_length, perch_weight) 
+plt.xlabel('length') 
+plt.ylabel('weight') 
+plt.show()
+```
+
+![image](https://user-images.githubusercontent.com/74139727/220824130-2a0cabda-da2d-432a-bdeb-7eda220542ae.png)
+
+
+### 훈련 세트 준비
+
+```python
+from sklearn.model_selection import train_test_split
+
+train_input, test_input, train_target, test_target = train_test_split(
+    perch_length, perch_weight, random_state=42
+)
+
+train_input = train_input.reshape(-1, 1)
+test_input = test_input.reshape(-1 ,1)
+```
+
+- 사이킷 런에서 기본적으로 2차원 배열을 사용하기 때문에(행=샘플, 열방향=특성) numpy의 reshape을 이용해 1차원 배열을 2차원 배열로 바꿔줌
+- train_input을 출력해보면 아래와 같은 2차원이 됨
+    - reshape는 헷갈릴 수 있는데
+    reshape(인자 갯수): 괄호의 개수
+        
+        인자의 뒤에서 부터 가장 안쪽 괄호의 개수를 지정한다고 생각하면 된다.
+        
+        가장 안쪽 괄호의 개수라면 1은 안쪽괄호의 개수
+        
+        그리고 -1은 정해진 값을 제외한 나머지 값들을 의미한다. 여기서는 (42, 1)
+        
+        = 총 개수가 인자들의 곱과 같으면 어떤 차원이든 생성가능!
+        
+    
+    ```python
+    [[19.6]
+     [22. ]
+     [18.7]
+     [17.4]
+    #....
+    ]
+    ```
+    
+
+### 회귀모델 훈련
+
+```python
+from sklearn.neighbors import KNeighborsRegressor
+
+knr = KNeighborsRegressor()
+knr.fit(train_input, train_target)
+
+knr.score(test_input, test_target) #0.992809406101064
+```
+
+- 1에 가까운 0.99..로 타겟을 잘 맞준다고 할 수있음
+
+### 회귀 결과 값
+
+1. **결정 계수(R-Squared)**
+    - 분류에서 나온 값 = 정확도(몇 개 중에 몇 개 맞았는지)
+    - 회귀에서 나온 값 = 결정 개수(Coefficient of determination)
+    - SST = SSE + SSR
+    - 총 변동 = 설명된 변동 + 설명안된 변동
+    - 평균이로부터의 거리 = 평균부터 우리가 만든 모델의 거리 + 우리 모델에서 관측된 값의 거리(오차)
+    - 0(예측이 평균 값과 비슷 → 좋지 않은 회귀 모델)
+    - 1(예측이 타겟에 정확히 맞춘다면 분자가 0이됨 → 좋은 회귀 모델)
+
+
+
+1. 평균 절대값 오차(MAE, Mean Absolute Error)
+    
+    ```python
+    from sklearn.metrics import mean_absolute_error
+    
+    test_prediction = knr.predict(test_input)
+    mae = mean_absolute_error(test_target, test_prediction)
+    print(mae) # 19.157142857142862
+    ```
+    
+    - test_target과 test_prediction 차이의 절대값의 평균을 리턴한다.
+    - 19g정도 오차가 난다는 걸 확인 할 수 있음(더 많은지 적은지는 알 수 없음)
+
+### 과적합 확인
+
+```python
+print(knr.score(train_input, train_target)) # 0.9698823289099254
+print(knr.score(test_input, test_target)) # 0.992809406101064
+```
+
+- 훈련 셋 < 테스트 셋 이므로 과소적합(under fitting)된 것을 확인할 수 있음
