@@ -15,13 +15,15 @@ Celery를 사용하는 이유
 2. 좋은 인터페이스 제공
 3. 장고와 integration이 쉬움
 
-### 특징
+</br>
 
-1. 비대칭적 구조
+## 특징
+
+### 1. 비대칭적 구조
 - Client와 worker 각각 scale 관리 가능
 - Client 불필요하고 무거운 작업으로부터 자유로움
 
-1. AMQP(Advanced Message Queueing Protocol)
+### 2. AMQP(Advanced Message Queueing Protocol)
     - 최소한 한번은 전달되도록 하는 컨셉
     - Producer: 작업(Message) 생성하여 브로커에 전달
     - Consumer: 메세지를 받으면 Acknowledge(인정)한다고 브로커에 전달한다.
@@ -35,36 +37,77 @@ Delay() : 비동기적 수행
 
 Apply_async 사용하면 언제 실행할지도 지정할 수 있음, call_back처럼 다른 Task를 실행할 수도 있음
 
-### 사용시 주의사항
+## 사용시 주의사항
 
-1. Late Ack’ 사용하기
+### 1. Late Ack’ 사용하기
     - 보통 Celery worker는 Ack’를 task실행 직전에 하지만 Late Ack’는 실행이 완료된 후에 Ack’를 하게된다. Worker는 Ack’를 하게되면 task Queue에서 해당 작업을 삭제하는데 Late Ack’ 미사용시 완료전에 제거 될 수 있어서 해당 작업이 실행되지 않을 가능성이 생긴다. 하지만 Late Ack’시 실행이 되지 않으면 큐에 남아 있어서 다시 재실행을 할 수 있게 된다.
     - 중복으로 실행될 수 있기 때문에 주의해야한다. ⇒ Idempotent 적으로 task작성
 
-1. Retry 사용하기
+### 2. Retry 사용하기
 - `@app.task(bind=True)` 데코레이터 하위 함수에서 예외처리를 통해 안정적으로 사용할 수 있다.
 - ConnectionError등이 발생할 때 try, except안에서 self.retry를 통해 재시도를 할수 있다.
 - 최근버전에는 task정의시 arg로 넘겨서 깔끔하게 사용가능한다.
 - Atomicity하게 적용이 되어야하고 명확한 오류의 원인이 있을 때 사용하도록 주의해야 한다.
 
-1. Visibility timeout적용하기
+### 3. Visibility timeout적용하기
     - 전달 후 일정시간 내료 Ack’되지 않으면 다른 worker에 task를 전달
     - rabbimq를 사용한다면 confirm_publish=True조건을 주면 됨
     - AMQP 프로토콜을 사용하는 Broker는 Ack가 오지 않으면 다시 메세지를 보내지만 AMQP 프로토콜을 사용하지 않는 Broker를 사용하게 되면 Visibility timeout으로 구현하게 된다. 일정시간동안 timeout이 안되면 처리되지 않은 것으로 보고 다시 보내게 되는거다.
     - Redis는 모사 AMQP여서 Visibility timeout내에 ack가 전달되지 않으면 task가 중복실행 되게 되는데 eta, countdown(지연실행 방법들) 시간보다 visibility timeout이 커야 문제가 되지 않는다.
     - AWS SQS의 최대 제한시간은 12시간
 
-### 효율적인 처리
+</br>
+
+## 메모리 이슈
+샐러리를 사용하다가 worker에서 메모리 누수가 생길 경우 다음의 사항을 적용하는 것을 고려할 수 있다. 
+
+### 1. worker_max_tasks_per_child
+worker에서 처리하는 총 task 개수가 지정한 개수를 넘어가면 worker를 재생성하게 된다. 이는 혹시 모를 메모리 누수 발생시 운영체제에게 메모리를 반환할 수 있게된다. 
+
+- 장고 설정으로 적용
+```python
+CELERY_WORKER_MAX_TASKS_PER_CHILD = 100
+```
+
+- celery에 적용
+```
+--max-tasks-per-child=100
+```
+
+### 2. worker_max_memory_per_child
+worker가 점유할 수 있는 최대 메모리의 양(KB)이다. 단일 작업으로 인해 워커가 이 메모리 사용량을 초과하게 되면 작업이 완료되고 워커가 교체되게 된다. 
+- 장고 설정으로 적용
+
+```python
+CELERY_WORKER_MAX_MEMORY_PER_CHILD = 1024000  #1GB
+```
+
+- celery에 적용
+```
+--max-memory-per-child=1024000
+```
+
+### 3. concurrency 줄이기
+샐러리의 기본 concurrency는 서버의 코어수로 되어있다. 사용하는 샐러리 워커의 사용량이 많을 때 사용하는 프로세스를 확인하고  적당한 양으로 줄여서 사용하는 걸 권장한다. 
+- docker-compose에 적용할 경우
+```
+--concurrency=4
+```
+
+</br>
+
+
+## 효율적인 처리
 
 일시적으로 처리 속도 < 쌓이는 속도여도 큰 문제가 되진 않지만 지속되면 브로커에 불필요한 로드가 발생하고 작업이 진행되지 않는다. 
 
-[ Ignore_result ]
+### [ Ignore_result ]
 
 Celery는 기본적으로 수행결과(return 값)을 저장해야 작업이 끝나게 되어있다. 
 
 Task후 연계하여 작업이 또 있는 경우에만 result를 저장하여 결과저장이 불필요한 경우에는 Ignore_result=True를 통해 결과 저장 비용을 줄이고 성능을 높일 수 있다. 
 
-[ 평균 수행시간이 비슷한 작업끼리 같은 Queue에 있도록 하기 ]
+### [ 평균 수행시간이 비슷한 작업끼리 같은 Queue에 있도록 하기 ]
 
 Task 혹은 모듈 단위로 task queue를 지정할 수 있음
 
@@ -82,7 +125,7 @@ CELERY_ROUTES = {
 celery -A pykr worker -Q feeds
 ```
 
-[ Limit ]
+### [ Limit ]
 
 1. Time Limit
     - Task가 일정시간 이상 실행되면 종료시키기
@@ -94,7 +137,7 @@ celery -A pykr worker -Q feeds
     - rate_limit = “60/m”
     - Rate limit은 worker 별로 관리됨
 
-[ Concurrency, Worker Pool ]
+### [ Concurrency, Worker Pool ]
 
 Celery 실행시 아래의 명령어로 실행
 
@@ -122,7 +165,7 @@ celery -A <Project> worker -P <Worker name> -c <Concurrency>
      I/O bound 작업에서 사용하며 green thread기반으로 되어있다. concurreny를 몇백개 혹은 몇 천개로 설정도 가능하다.(Prefetch 는 CPU때문에 그정도로는 설정할 수 없음)
     
 
-[ Prefetch ] 
+### [ Prefetch ] 
 
 Prefetch Limit: Ack’ 되지 않은 message의 갯수를 워커가 얼마나 가질 수 있냐
 
@@ -134,15 +177,14 @@ Prefetch Limit: Ack’ 되지 않은 message의 갯수를 워커가 얼마나 �
     - acks_late = False
         
         워커에서 테스크를 받으면 이 테스크를 실행하기 직전에 처음 테스크들은 Ack’를 하게 된다. 그리고 그 뒤에 쌓인 message들은(Ack’된 메세지들 제외) prefetch limit이 적용되게 된다. 그러면 concurency = 2인 워커는 multiplier = 1을 곱해 2만큼 message가 prefetch되고 concurency = 1인 워커는 multiplier = 1을 곱해 1개의 message를 prefetch한다. 이렇게 하게되면 긴 task위에 짧은 task들을 쌓아서 짧은 task들이 실행되지 않는 일을 막을 수 있다. 
-        
-        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/779c6d93-769c-46b1-8a9e-60cad213217d/Untitled.png)
+       
         
         여기서 만약 acks_late = True 로 하게되면 실행중인 task만 prefetch하게 된다.  prefetch를 하는데도 결국 네트워크를 타게 되기 때문에 prefetch_multiplier를 높여주면 짧은 task를 더 빠르게 실행할 수 있게 된다. 
         
         ⇒ 이 옵션을 제대로 활용하기 위해서는 Long task와 short task를 구분해서 worker를 지정해줘야 한다. 
         
     
-    [ 결론 ] 
+### [ 결론 ] 
     
     다양한 worker 옵션들 중 자신의 프로젝트와 맞는 옵션을 사용하려면 아래의 조건에 따라 결정하도록 한다.
     
@@ -150,3 +192,5 @@ Prefetch Limit: Ack’ 되지 않은 message의 갯수를 워커가 얼마나 �
     - 중요도
     - 수행 시간
     - 실행의 빈도
+
+
