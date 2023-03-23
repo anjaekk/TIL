@@ -162,7 +162,8 @@ python -m grpc_tools.protoc -I . --python_out=. --pyi_out=. --grpc_python_out=. 
 
 그럼, 다음과 같이 자동으로 파일이 생성된다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b7f0fa4d-1e14-4482-90c9-0fe44997e619/Untitled.png)
+![image](https://user-images.githubusercontent.com/74139727/227123573-f85df829-d0b7-44f0-9662-ddaa647c8512.png)
+
 
 *이후 proto파일의 수정사항이 생길 경우 지우고 삭제할 필요없이 proto파일 수정 후 위의 명령어만 재입력해주면 자동으로 생성된 파일에 수정 반영된다.* 
 
