@@ -1,4 +1,4 @@
-## 단방향 RPC Tutorial
+# 단방향 RPC Tutorial
 
 ### 1. grpc 설치
 
@@ -36,6 +36,8 @@ message HelloReply {
   string message = 1;
 }
 ```
+
+- python compiler는 .proto에 작성한 각 메세지 타입의 static discriptor가 있는 모듈을 생성하고 meta class와 함께 런타임에 필요한 python data access class를 작성하는데 사용된다.
 
 ### 4. protobuf 파일 컴파일을 통해 파일 생성
 
