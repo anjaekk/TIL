@@ -3,7 +3,7 @@
 ## 정의
 
 - 분류와 회귀에 사용되는 지도학습 방법
-- 결정 트리는 **불순도를 최소화(순도를 최대화)**하고 **정보 이득을 최대화**하는 방향으로 학습을 진행
+- 결정 트리는 불순도를 최소화(순도를 최대화)하고 정보 이득을 최대화하는 방향으로 학습을 진행
 
 ## 특징
 
@@ -132,10 +132,10 @@
 
 출처
 
-[https://bkshin.tistory.com/entry/머신러닝-4-결정-트리Decision-Tree](https://bkshin.tistory.com/entry/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D-4-%EA%B2%B0%EC%A0%95-%ED%8A%B8%EB%A6%ACDecision-Tree)
+*[https://bkshin.tistory.com/entry/머신러닝-4-결정-트리Decision-Tree](https://bkshin.tistory.com/entry/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D-4-%EA%B2%B0%EC%A0%95-%ED%8A%B8%EB%A6%ACDecision-Tree)*
 
-지니 지수 계산 방법 - [https://lucy-the-marketer.kr/ko/growth/decision-tree-and-impurity/](https://lucy-the-marketer.kr/ko/growth/decision-tree-and-impurity/)
+지니 지수 계산 방법 - *[https://lucy-the-marketer.kr/ko/growth/decision-tree-and-impurity/](https://lucy-the-marketer.kr/ko/growth/decision-tree-and-impurity/)*
 
-[https://tensorflow.blog/파이썬-머신러닝/2-3-5-결정-트리/](https://tensorflow.blog/%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2-3-5-%EA%B2%B0%EC%A0%95-%ED%8A%B8%EB%A6%AC/)
+*[https://tensorflow.blog/파이썬-머신러닝/2-3-5-결정-트리/](https://tensorflow.blog/%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2-3-5-%EA%B2%B0%EC%A0%95-%ED%8A%B8%EB%A6%AC/)*
 
-엔트로피 계산 방법 - [https://needjarvis.tistory.com/718#:~:text=정보 이득(Information Gain)은,때 사용하는 기댓값이다](https://needjarvis.tistory.com/718#:~:text=%EC%A0%95%EB%B3%B4%20%EC%9D%B4%EB%93%9D(Information%20Gain)%EC%9D%80,%EB%95%8C%20%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94%20%EA%B8%B0%EB%8C%93%EA%B0%92%EC%9D%B4%EB%8B%A4).
+엔트로피 계산 방법 - *[https://needjarvis.tistory.com/718#:~:text=정보 이득(Information Gain)은,때 사용하는 기댓값이다](https://needjarvis.tistory.com/718#:~:text=%EC%A0%95%EB%B3%B4%20%EC%9D%B4%EB%93%9D(Information%20Gain)%EC%9D%80,%EB%95%8C%20%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94%20%EA%B8%B0%EB%8C%93%EA%B0%92%EC%9D%B4%EB%8B%A4).*
