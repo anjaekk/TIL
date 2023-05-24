@@ -38,7 +38,7 @@ docker-compose.yaml
 
 ```
 mongodb-1:
-		&mongodb
+    &mongodb
     image: mongo
     container_name: mongodb-1
     restart: unless-stopped
@@ -56,7 +56,7 @@ mongodb-1:
       - mongo-net
 
   mongodb-2:
-		<<: *mongodb
+    <<: *mongodb
     container_name: mongodb-2
     ports:
       - 27018:27017
@@ -66,7 +66,7 @@ mongodb-1:
 
 
   mongodb-3:
-		<<: *mongodb
+    <<: *mongodb
     container_name: mongodb-3
     ports:
       - 27019:27017
