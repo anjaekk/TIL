@@ -36,8 +36,9 @@ chmod 400 <path-to-keyfile>
 
 docker-compose.yaml
 
-```python
+```
 mongodb-1:
+		&mongodb
     image: mongo
     container_name: mongodb-1
     restart: unless-stopped
@@ -55,38 +56,24 @@ mongodb-1:
       - mongo-net
 
   mongodb-2:
-    image: mongo
+		<<: *mongodb
     container_name: mongodb-2
-    restart: unless-stopped
     ports:
       - 27018:27017
     volumes:
       - mongo-db2:/data/db
       - ./mongodb.key:/etc/mongodb.key 
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=1234 
-      - MONGO_INITDB_DATABASE=dbname
-    command: mongod --replSet replication --keyFile /etc/mongodb.key --port 27017
-    networks:
-      - mongo-net
+
 
   mongodb-3:
-    image: mongo
+		<<: *mongodb
     container_name: mongodb-3
-    restart: unless-stopped
     ports:
       - 27019:27017
     volumes:
       - mongo-db3:/data/db
       - ./mongodb.key:/etc/mongodb.key 
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=1234 
-      - MONGO_INITDB_DATABASE=dbname
-    command: mongod --replSet replication --keyFile /etc/mongodb.key --port 27017
-    networks:
-      - mongo-net
+
 
 volumes:
   mongo-db1:
